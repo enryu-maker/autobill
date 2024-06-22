@@ -1,6 +1,17 @@
 import React from "react";
-
+import { IMAGE } from "../../Assets/Image";
+import { ThreeDots } from "react-loader-spinner";
+import { useDispatch } from "react-redux";
+import { LoginAction } from "../../Store/actions";
+import { useNavigate } from "react-router-dom";
 export default function Login() {
+  const [data, setData] = React.useState({
+    mobile_number: "",
+    password: "",
+  })
+  const navigate = useNavigate()
+  const [loading, setLoading] = React.useState(false)
+  const dispatch = useDispatch()
   return (
     <div class="bg-gradient-to-r font-Poppins from-purple-900 via-purple-800 to-purple-600 text-[#333]">
       <div class="min-h-screen flex fle-col items-center justify-center lg:p-6 p-4">
@@ -8,17 +19,16 @@ export default function Login() {
           <div class="max-md:text-center">
             <a href="javascript:void(0)">
               <img
-                src="https://readymadeui.com/readymadeui-white.svg"
+                src={IMAGE.logo2}
                 alt="logo"
                 class="w-52 mb-10 inline-block"
               />
             </a>
             <h2 class="text-4xl font-extrabold lg:leading-[50px] text-white">
-              Seamless Login for Exclusive Access
+              Effortless Garage Billing Software
             </h2>
             <p class="text-sm mt-6 text-white">
-              Immerse yourself in a hassle-free login journey with our
-              intuitively designed login form. Effortlessly access your account.
+              Immerse yourself in a hassle-free billing experience with AutoBill. Effortlessly manage your garage invoices and payments.
             </p>
             <p class="text-sm mt-10 text-white">
               Don't have an account{" "}
@@ -40,6 +50,10 @@ export default function Login() {
                 type="tel"
                 autocomplete="tel"
                 required
+                value={data?.mobile_number}
+                onChange={(e) => {
+                  setData({ ...data, mobile_number: e.target.value })
+                }}
                 class="bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-[#333]"
                 placeholder="Phone"
               />
@@ -50,16 +64,38 @@ export default function Login() {
                 type="password"
                 autocomplete="current-password"
                 required
+                value={data?.password}
+                onChange={(e) => {
+                  setData({ ...data, password: e.target.value })
+                }}
                 class="bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-[#333]"
                 placeholder="Password"
               />
             </div>
             <div class="!mt-10">
               <button
+                onClick={() => {
+                  dispatch(LoginAction(setLoading, data, navigate))
+                }}
                 type="button"
-                class="w-full shadow-xl py-2.5 px-4 text-sm font-semibold rounded text-white bg-[#333] hover:bg-[#222] focus:outline-none"
+                class="w-full shadow-xl flex justify-center items-center py-2.5 px-4 text-sm font-semibold rounded text-white bg-[#333] hover:bg-[#222] focus:outline-none"
               >
-                Log in
+                {
+                  loading ?
+                    <ThreeDots
+                      visible={true}
+                      height="30"
+                      width="30"
+                      color="#ffffff"
+                      radius="9"
+                      ariaLabel="three-dots-loading"
+                      wrapperStyle={{}}
+                      wrapperClass=""
+                    />
+                    :
+                    "Log in"
+                }
+
               </button>
             </div>
           </form>

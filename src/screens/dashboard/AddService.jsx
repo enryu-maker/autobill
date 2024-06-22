@@ -1,14 +1,35 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { createService } from "../../Store/actions";
+import { ThreeDots } from "react-loader-spinner";
 
-
-export default function AddService({ setService }) {
-  
-  const [inputs, setInputs] = React.useState([{ item: "", price: 0 }]);
-  const [inputs1, setInputs1] = React.useState([{ item: "", price: 0 }]);
-
+export default function AddService({ setService, userID }) {
+  const dispatch = useDispatch()
+  const [loading, setLoading] = React.useState(false)
+  const [data, setData] = React.useState([])
+  function getDate() {
+    const today = new Date();
+    const month = today.getMonth() + 1;
+    const year = today.getFullYear();
+    const date = today.getDate();
+    return `${year}-${month}-${date}`;
+  }
+  const [inputs, setInputs] = React.useState([{ name: "", cost: 0 }]);
+  const [inputs1, setInputs1] = React.useState([{ name: "", cost: 0 }]);
+  const [advance, setAdvance] = React.useState("")
+  function totalprice() {
+    let total = 0;
+    for (let i = 0; i < inputs.length; i++) {
+      total += parseInt(inputs[i].cost);
+    }
+    for (let i = 0; i < inputs1.length; i++) {
+      total += parseInt(inputs1[i].cost);
+    }
+    return total;
+  }
 
   const handleAddInput = () => {
-    setInputs([...inputs, { item: "", price: "" }]);
+    setInputs([...inputs, { name: "", cost: 0 }]);
   };
 
   const handleChange = (event, index) => {
@@ -25,7 +46,7 @@ export default function AddService({ setService }) {
   };
 
   const handleAddInput1 = () => {
-    setInputs1([...inputs1, { item: "", price: "" }]);
+    setInputs1([...inputs1, { name: "", cost: 0 }]);
   };
 
   const handleChange1 = (event, index) => {
@@ -41,9 +62,11 @@ export default function AddService({ setService }) {
     setInputs1(newArray);
   };
 
+
+
   return (
     <div className="fixed inset-0 p-4 flex flex-wrap justify-center items-center w-full h-full z-[1000] font-Poppins before:fixed before:inset-0 before:w-full before:h-full before:bg-[rgba(0,0,0,0.5)] overflow-auto ">
-      <div className="w-[78vw] h-[88vh]  bg-white shadow-lg rounded-lg p-6 relative">
+      <div className="w-[88vw] h-[92vh] flex flex-col justify-evenly  bg-white shadow-lg rounded-lg p-6 relative">
         <div className="flex items-center pb-3 border-b border-gray-300">
           <h3 className="text-gray-800 text-xl font-bold flex-1">
             Add Service
@@ -79,30 +102,30 @@ export default function AddService({ setService }) {
                     <div className="flex space-x-3 w-[100%] items-center justify-between ">
                       <div className="">
                         <label
-                          htmlFor="wifi_name"
+                          htmlFor="name"
                           className="block text-sm text-left  font-bold font-poppins text-gray-900"
                         >
                           Service Name <span className="text-red-600">*</span>
                         </label>
                         <input
-                          name="wifi_name"
+                          name="name"
                           type="text"
-                          value={item.wifi_name}
+                          value={item.name}
                           onChange={(event) => handleChange(event, index)}
                           className="block w-[350px]  p-2 border-2 py-1.5  text-gray-900 focus:outline-purple-600"
                         />
                       </div>
                       <div className="">
                         <label
-                          htmlFor="password"
+                          htmlFor="cost"
                           className="block text-sm text-left  font-bold font-poppins text-gray-900"
                         >
                           Price <span className="text-red-600">*</span>
                         </label>
                         <input
-                          name="password"
-                          type="text"
-                          value={item.password}
+                          name="cost"
+                          type="number"
+                          value={item.cost}
                           onChange={(event) => handleChange(event, index)}
                           className="block w-[100px] px-2 border-2 py-1.5  text-gray-900 focus:outline-purple-600"
                         />
@@ -149,30 +172,30 @@ export default function AddService({ setService }) {
                     <div className="flex space-x-3 w-[100%] items-center justify-between ">
                       <div className="">
                         <label
-                          htmlFor="wifi_name"
+                          htmlFor="name"
                           className="block text-sm text-left  font-bold font-poppins text-gray-900"
                         >
                           Part Name <span className="text-red-600">*</span>
                         </label>
                         <input
-                          name="wifi_name"
+                          name="name"
                           type="text"
-                          value={item.wifi_name}
+                          value={item.name}
                           onChange={(event) => handleChange1(event, index)}
                           className="block w-[350px]  p-2 border-2 py-1.5  text-gray-900 focus:outline-purple-600"
                         />
                       </div>
                       <div className="">
                         <label
-                          htmlFor="password"
+                          htmlFor="cost"
                           className="block text-sm text-left  font-bold font-poppins text-gray-900"
                         >
                           Price <span className="text-red-600">*</span>
                         </label>
                         <input
-                          name="password"
-                          type="text"
-                          value={item.password}
+                          name="cost"
+                          type="number"
+                          value={item.cost}
                           onChange={(event) => handleChange1(event, index)}
                           className="block w-[100px] px-2 border-2 py-1.5  text-gray-900 focus:outline-purple-600"
                         />
@@ -196,7 +219,7 @@ export default function AddService({ setService }) {
                       {index === inputs1.length - 1 && (
                         <>
                           <button
-                            className="flex w-[30%] justify-center  bg-gradient-to-r font-Poppins from-purple-700 via-purple-600 to-purple-500 hover:bg-white hover:text-black hover:border-black hover:border-[1px] p-5 px-3 py-1.5 tracking-wider font-poppins font-bold  leading-6 text-white"
+                            className="flex w-[30%] justify-center bg-gradient-to-r font-Poppins from-purple-700 via-purple-600 to-purple-500 hover:bg-white hover:text-black hover:border-black hover:border-[1px] p-5 px-3 py-1.5 tracking-wider font-poppins font-bold  leading-6 text-white"
                             onClick={() => handleAddInput1()}>Add</button>
 
                         </>
@@ -211,11 +234,56 @@ export default function AddService({ setService }) {
         </div>
 
         <div className="border-t border-gray-300 py-2  flex justify-end gap-4">
+          <div className="bg-gray-100 text-base px-4 py-3.5 rounded-md outline-[#333]">
+            Total Cost : ₹{totalprice()}
+          </div>
+          <input
+            type="number"
+            value={advance}
+            onChange={(event) => { setAdvance(parseInt(event.target.value)) }}
+            className="block w-[150px] px-2 border-2 py-1.5 rounded-md text-gray-900 focus:outline-purple-600"
+            placeholder="Advance"
+          />
+          <div className="bg-gray-100 text-base px-4 py-3.5 rounded-md outline-[#333]">
+            Balance : ₹{totalprice() - advance}
+          </div>
           <button
+            onClick={() => {
+              dispatch(createService(setLoading, {
+                "name": "service",
+                "date": getDate(),
+                "labour": inputs,
+                "spare": inputs1
+              }, userID))
+            }}
             type="button"
-            className="bg-gradient-to-r font-Poppins from-purple-700 via-purple-600 to-purple-500 text-sm px-4 py-3 text-white "
+            className="bg-gradient-to-r font-Poppins from-purple-700 via-purple-600 to-purple-500 text-lg px-8 py-3 text-white "
           >
-            Save
+            {
+                  loading ?
+                    <ThreeDots
+                      visible={true}
+                      height="30"
+                      width="30"
+                      color="#ffffff"
+                      radius="9"
+                      ariaLabel="three-dots-loading"
+                      wrapperStyle={{}}
+                      wrapperClass=""
+                    />
+                    :
+                    "Save"
+                }
+          </button>
+          <button
+            onClick={() => {
+              // console.log(totalprice(inputs))
+              // console.log(totalprice())
+            }}
+            type="button"
+            className="bg-gradient-to-r font-Poppins from-purple-700 via-purple-600 to-purple-500 text-lg px-8 py-3 text-white "
+          >
+            Print
           </button>
         </div>
       </div>

@@ -1,12 +1,16 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addCustomers } from "../../Store/actions";
+import { ThreeDots } from "react-loader-spinner";
 
-export default function Pop({ setShow }) {
+export default function Pop({ setShow, setData }) {
   const [focused, setFocused] = useState({});
+  const [loading,setLoading] = React.useState(false)
   const [values, setValues] = useState({
     name: "",
-    number: "",
-    vehicleNumber: "",
-    vehicleMake: "",
+    mobile_number: "",
+    vehicle_number: "",
+    make: "",
   });
 
   const handleFocus = (field) => {
@@ -21,6 +25,8 @@ export default function Pop({ setShow }) {
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });
   };
+
+  const dispatch = useDispatch()
 
   return (
     <div className="fixed inset-0 p-4 flex flex-wrap justify-center items-center w-full h-full z-[1000] before:fixed before:inset-0 before:w-full before:h-full before:bg-[rgba(0,0,0,0.5)] overflow-auto font-[sans-serif]">
@@ -75,18 +81,18 @@ export default function Pop({ setShow }) {
           <div className="relative">
             <input
               type="text"
-              name="Mobile"
-              value={values.number}
+              name="mobile_number"
+              value={values.mobile_number}
               onChange={handleChange}
-              onFocus={() => handleFocus("number")}
-              onBlur={() => handleBlur("number")}
+              onFocus={() => handleFocus("mobile_number")}
+              onBlur={() => handleBlur("mobile_number")}
               className="block w-full px-3 py-2 text-gray-900 bg-white border border-gray-300 rounded-md appearance-none focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               placeholder=""
               autoComplete="off"
             />
             <label
               className={`absolute left-3 top-2 px-1 bottom-0 transition-all duration-200 transform ${
-                focused.number || values.number
+                focused.mobile_number || values.mobile_number
                   ? "-translate-y-6 top-0 bg-white text-indigo-500"
                   : "text-gray-500"
               } pointer-events-none sm:text-base sm:font-light`}
@@ -98,18 +104,18 @@ export default function Pop({ setShow }) {
           <div className="relative">
             <input
               type="text"
-              name="vehicleNumber"
-              value={values.vehicleNumber}
+              name="vehicle_number"
+              value={values.vehicle_number}
               onChange={handleChange}
-              onFocus={() => handleFocus("vehicleNumber")}
-              onBlur={() => handleBlur("vehicleNumber")}
-              className="block w-full px-3 py-2 text-gray-900 bg-white border border-gray-300 rounded-md appearance-none focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              onFocus={() => handleFocus("vehicle_number")}
+              onBlur={() => handleBlur("vehicle_number")}
+              className="block w-full uppercase px-3 py-2 text-gray-900 bg-white border border-gray-300 rounded-md appearance-none focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               placeholder=""
               autoComplete="off"
             />
             <label
               className={`absolute left-3 top-2 px-1 bottom-0 transition-all duration-200 transform ${
-                focused.vehicleNumber || values.vehicleNumber
+                focused.vehicle_number || values.vehicle_number
                   ? "-translate-y-6 top-0 bg-white text-indigo-500"
                   : "text-gray-500"
               } pointer-events-none sm:text-base sm:font-light`}
@@ -121,18 +127,18 @@ export default function Pop({ setShow }) {
           <div className="relative">
             <input
               type="text"
-              name="vehicleMake"
-              value={values.vehicleMake}
+              name="make"
+              value={values.make}
               onChange={handleChange}
-              onFocus={() => handleFocus("vehicleMake")}
-              onBlur={() => handleBlur("vehicleMake")}
+              onFocus={() => handleFocus("make")}
+              onBlur={() => handleBlur("make")}
               className="block w-full px-3 py-2 text-gray-900 bg-white border border-gray-300 rounded-md appearance-none focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               placeholder=""
               autoComplete="off"
             />
             <label
               className={`absolute left-3 top-2 px-1 bottom-0 transition-all duration-200 transform ${
-                focused.vehicleMake || values.vehicleMake
+                focused.make || values.make
                   ? "-translate-y-6 top-0 bg-white text-indigo-500"
                   : "text-gray-500"
               } pointer-events-none sm:text-base sm:font-light`}
@@ -152,9 +158,26 @@ export default function Pop({ setShow }) {
           </button>
           <button
             type="button"
+              onClick={()=>{
+                dispatch(addCustomers(setLoading,values,setData))
+              }}
             className="bg-gradient-to-r font-Poppins from-purple-700 via-purple-600 to-purple-500 text-sm px-4 py-3 text-white rounded-md "
           >
-            Save
+                            {
+                  loading ?
+                    <ThreeDots
+                      visible={true}
+                      height="30"
+                      width="30"
+                      color="#ffffff"
+                      radius="9"
+                      ariaLabel="three-dots-loading"
+                      wrapperStyle={{}}
+                      wrapperClass=""
+                    />
+                    :
+                    "Save"
+                }
           </button>
         </div>
       </div>

@@ -1,9 +1,9 @@
 import axios from 'axios';
-export const baseURL = 'http://localhost:8000'
+export const baseURL = 'http://autobill.pythonanywhere.com/'
 
 let headers = {};
 const axiosIns = axios.create({
-    baseURL: 'http://localhost:8000',
+    baseURL: 'http://autobill.pythonanywhere.com/',
     headers,
 });
 axiosIns.interceptors.request.use(

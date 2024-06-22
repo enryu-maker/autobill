@@ -1,16 +1,21 @@
 import React from "react";
 import { useLocation, useNavigate, useNavigation } from "react-router-dom";
+import { IMAGE } from "../../Assets/Image";
+import { useSelector } from "react-redux";
+import { baseURL } from "../../Helper/Helper";
 
 export default function Sidebar({ current, setCurrent }) {
   const navigate = useLocation();
+  const user = useSelector(state=>state.Reducers.profile)
+  console.log(user)
   return (
-    <nav className="bg-white shadow-xl h-screen fixed w-[20%] top-0 left-0 py-6 font-[sans-serif] overflow-auto">
+    <nav className="bg-white shadow-xl h-screen fixed w-[20%] top-0 left-0 pt-6 font-poppins overflow-auto">
       <div className="relative flex flex-col h-full">
         <a href="javascript:void(0)" className="text-center">
           <img
-            src="https://readymadeui.com/readymadeui.svg"
+            src={IMAGE.logo}
             alt="logo"
-            className="w-[160px] inline"
+            className="w-[160px] inline object-contain"
           />
         </a>
 
@@ -84,11 +89,11 @@ export default function Sidebar({ current, setCurrent }) {
 
         <div className="flex flex-wrap items-center cursor-pointer border-t border-gray-300 px-4 py-4">
           <img
-            src="https://readymadeui.com/profile.webp"
+            src={baseURL + user?.brand_image}
             className="w-9 h-9 rounded-full border-white"
           />
           <div className="ml-4">
-            <p className="text-sm text-black font-black">Rana Automobiles</p>
+            <p className="text-sm text-black font-Poppins font-black">{user?.brand_name}</p>
           </div>
         </div>
       </div>
