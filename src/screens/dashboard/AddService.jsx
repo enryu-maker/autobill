@@ -2,13 +2,7 @@ import React, { useState } from "react";
 
 
 export default function AddService({ setService }) {
-  const [focused, setFocused] = useState({});
-  const [values, setValues] = useState({
-    name: "",
-    number: "",
-    vehicleNumber: "",
-    vehicleMake: "",
-  });
+  
   const [inputs, setInputs] = React.useState([{ item: "", price: 0 }]);
   const [inputs1, setInputs1] = React.useState([{ item: "", price: 0 }]);
 
