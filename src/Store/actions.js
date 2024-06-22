@@ -62,12 +62,25 @@ export const LoginAction = (setLoading, data, navigate) => {
     }
 }
 
+export const LogoutAction = () => {
+    return async dispatch => {
+            await localStorage.clear()
+            dispatch({
+                type: 'LOGIN',
+                payload: null,
+            })
+            dispatch({
+                type: 'PROFILE',
+                payload: {},
+            })
+        }
+}
+
 export const addCustomers = (setLoading, data, setData) => {
     return async dispatch => {
         setLoading(true);
         try {
             let response = await axiosIns.post('customer/create/', data);
-            console.log(response.data)
             let response2 = await axiosIns.post(`customer/search/?search=${response?.data?.vehicle_number}`, data);
             setData(response2?.data?.results);
             setLoading(false);

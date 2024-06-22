@@ -10,7 +10,8 @@ export default function Bill({
         filename: "bill.pdf",
         page: {
             margin: 5,
-        }
+        },
+        
     };
     const getTargetElement = () => document.getElementById("container");
     const downloadPdf = () => generatePDF(getTargetElement, options);
@@ -93,7 +94,7 @@ export default function Bill({
                             ))
                         }
                     </table>
-                    <div className='flex w-[100%]  items-center justify-between pt-10'>
+                    <div className='flex w-[100%]   items-center justify-between pt-10'>
                         <p className=' font-Poppins text-2xl self-end'>
                             FOR RANA AUTOMOBILES
                         </p>
