@@ -5,6 +5,7 @@ import Home from "./screens/Home";
 import Dashboard from "./screens/dashboard/Dashboard";
 import Cutsomer from "./screens/dashboard/Cutsomer";
 import Main from "./screens/dashboard/Main";
+import AddService from "./screens/dashboard/AddService";
 export default function App() {
   return (
     <Routes>
@@ -13,6 +14,8 @@ export default function App() {
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/main" element={<Main />} />
       <Route path="/customers" element={<Cutsomer />} />
+      <Route path="/customer/add" element={<AddService />} />
+
     </Routes>
   );
 }

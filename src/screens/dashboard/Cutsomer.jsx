@@ -1,12 +1,19 @@
 import React from "react";
 import Sidebar from "./Sidebar";
 import Pop from "./Pop";
+import { useNavigate } from "react-router-dom";
+import AddService from "./AddService";
 
 export default function Customers({ current, setCurrent }) {
   const [show, setShow] = React.useState(false);
+  const [service, setService] = React.useState(false);
+
+  const navigate = useNavigate()
   return (
     <div className="flex w-[100vw] h-[100vh] justify-between font-Poppins ">
       {show ? <Pop setShow={setShow} /> : null}
+      {service ? <AddService setService={setService} /> : null}
+
       <div className="w-[20%]">
         <Sidebar current={current} setCurrent={setCurrent} />
       </div>
@@ -64,7 +71,11 @@ export default function Customers({ current, setCurrent }) {
                   <button class="text-purple-600 mr-4">View</button>
                 </td>
                 <td class="px-4 py-4 text-sm text-gray-800">
-                  <button class="text-green-600 font-black tracking-wide">
+                  <button 
+                  onClick={()=>{
+                    setService(true)
+                  }}
+                  class="text-green-600 font-black tracking-wide">
                     +New
                   </button>
                 </td>
