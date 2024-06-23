@@ -4,9 +4,9 @@ import { createService } from "../../Store/actions";
 import { ThreeDots } from "react-loader-spinner";
 
 export default function AddService({ setService, userID }) {
-  const dispatch = useDispatch()
-  const [loading, setLoading] = React.useState(false)
-  const [data, setData] = React.useState([])
+  const dispatch = useDispatch();
+  const [loading, setLoading] = React.useState(false);
+  const [data, setData] = React.useState([]);
   function getDate() {
     const today = new Date();
     const month = today.getMonth() + 1;
@@ -16,7 +16,7 @@ export default function AddService({ setService, userID }) {
   }
   const [inputs, setInputs] = React.useState([{ name: "", cost: 0 }]);
   const [inputs1, setInputs1] = React.useState([{ name: "", cost: 0 }]);
-  const [advance, setAdvance] = React.useState("")
+  const [advance, setAdvance] = React.useState("");
   function totalprice() {
     let total = 0;
     for (let i = 0; i < inputs.length; i++) {
@@ -62,8 +62,6 @@ export default function AddService({ setService, userID }) {
     setInputs1(newArray);
   };
 
-
-
   return (
     <div className="fixed inset-0 p-4 flex flex-wrap justify-center items-center w-full h-full z-[1000] font-Poppins before:fixed before:inset-0 before:w-full before:h-full before:bg-[rgba(0,0,0,0.5)] overflow-auto ">
       <div className="w-[88vw] h-[92vh] flex flex-col justify-evenly  bg-white shadow-lg rounded-lg p-6 relative">
@@ -95,7 +93,7 @@ export default function AddService({ setService, userID }) {
             <h3 className="text-gray-800 py-5 text-xl font-bold flex-1">
               Labour Cost
             </h3>
-            <div className=' flex justify-center w-[100%] h-[72%] overflow-y-auto pt-5 font-poppins'>
+            <div className=" flex justify-center w-[100%] h-[72%] overflow-y-auto pt-5 font-poppins">
               <div className="container flex flex-wrap justify-between">
                 {inputs.map((item, index) => (
                   <div className="input_container space-y-2" key={index}>
@@ -133,28 +131,37 @@ export default function AddService({ setService, userID }) {
                       {inputs.length > 1 && (
                         <button
                           className="block   py-1.5 mt-5  text-gray-900 "
-                          onClick={() => handleDeleteInput(index)}>
-                          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 fill-red-500 inline" viewBox="0 0 24 24">
+                          onClick={() => handleDeleteInput(index)}
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="w-5 fill-red-500 inline"
+                            viewBox="0 0 24 24"
+                          >
                             <path
                               d="M19 7a1 1 0 0 0-1 1v11.191A1.92 1.92 0 0 1 15.99 21H8.01A1.92 1.92 0 0 1 6 19.191V8a1 1 0 0 0-2 0v11.191A3.918 3.918 0 0 0 8.01 23h7.98A3.918 3.918 0 0 0 20 19.191V8a1 1 0 0 0-1-1Zm1-3h-4V2a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v2H4a1 1 0 0 0 0 2h16a1 1 0 0 0 0-2ZM10 4V3h4v1Z"
-                              data-original="#000000" />
-                            <path d="M11 17v-7a1 1 0 0 0-2 0v7a1 1 0 0 0 2 0Zm4 0v-7a1 1 0 0 0-2 0v7a1 1 0 0 0 2 0Z"
-                              data-original="#000000" />
+                              data-original="#000000"
+                            />
+                            <path
+                              d="M11 17v-7a1 1 0 0 0-2 0v7a1 1 0 0 0 2 0Zm4 0v-7a1 1 0 0 0-2 0v7a1 1 0 0 0 2 0Z"
+                              data-original="#000000"
+                            />
                           </svg>
                         </button>
                       )}
                     </div>
 
-                    <div className=' flex space-x-5 py-3'>
+                    <div className=" flex space-x-5 py-3">
                       {index === inputs.length - 1 && (
                         <>
                           <button
                             className="flex w-[30%] justify-center  bg-gradient-to-r font-Poppins from-purple-700 via-purple-600 to-purple-500 hover:bg-white hover:text-black hover:border-black hover:border-[1px] p-5 px-3 py-1.5 tracking-wider font-poppins font-bold  leading-6 text-white"
-                            onClick={() => handleAddInput()}>Add</button>
-
+                            onClick={() => handleAddInput()}
+                          >
+                            Add
+                          </button>
                         </>
                       )}
-
                     </div>
                   </div>
                 ))}
@@ -165,7 +172,7 @@ export default function AddService({ setService, userID }) {
             <h3 className="text-gray-800 py-5 text-xl font-bold flex-1">
               Spare Parts Cost
             </h3>
-            <div className=' flex justify-center w-[100%] h-[72%] overflow-y-auto pt-5 font-poppins'>
+            <div className=" flex justify-center w-[100%] h-[72%] overflow-y-auto pt-5 font-poppins">
               <div className="container flex flex-wrap justify-between">
                 {inputs1.map((item, index) => (
                   <div className="input_container space-y-2" key={index}>
@@ -203,28 +210,37 @@ export default function AddService({ setService, userID }) {
                       {inputs1.length > 1 && (
                         <button
                           className="block   py-1.5 mt-5  text-gray-900 "
-                          onClick={() => handleDeleteInput1(index)}>
-                          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 fill-red-500 inline" viewBox="0 0 24 24">
+                          onClick={() => handleDeleteInput1(index)}
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="w-5 fill-red-500 inline"
+                            viewBox="0 0 24 24"
+                          >
                             <path
                               d="M19 7a1 1 0 0 0-1 1v11.191A1.92 1.92 0 0 1 15.99 21H8.01A1.92 1.92 0 0 1 6 19.191V8a1 1 0 0 0-2 0v11.191A3.918 3.918 0 0 0 8.01 23h7.98A3.918 3.918 0 0 0 20 19.191V8a1 1 0 0 0-1-1Zm1-3h-4V2a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v2H4a1 1 0 0 0 0 2h16a1 1 0 0 0 0-2ZM10 4V3h4v1Z"
-                              data-original="#000000" />
-                            <path d="M11 17v-7a1 1 0 0 0-2 0v7a1 1 0 0 0 2 0Zm4 0v-7a1 1 0 0 0-2 0v7a1 1 0 0 0 2 0Z"
-                              data-original="#000000" />
+                              data-original="#000000"
+                            />
+                            <path
+                              d="M11 17v-7a1 1 0 0 0-2 0v7a1 1 0 0 0 2 0Zm4 0v-7a1 1 0 0 0-2 0v7a1 1 0 0 0 2 0Z"
+                              data-original="#000000"
+                            />
                           </svg>
                         </button>
                       )}
                     </div>
 
-                    <div className=' flex space-x-5 py-3'>
+                    <div className=" flex space-x-5 py-3">
                       {index === inputs1.length - 1 && (
                         <>
                           <button
                             className="flex w-[30%] justify-center bg-gradient-to-r font-Poppins from-purple-700 via-purple-600 to-purple-500 hover:bg-white hover:text-black hover:border-black hover:border-[1px] p-5 px-3 py-1.5 tracking-wider font-poppins font-bold  leading-6 text-white"
-                            onClick={() => handleAddInput1()}>Add</button>
-
+                            onClick={() => handleAddInput1()}
+                          >
+                            Add
+                          </button>
                         </>
                       )}
-
                     </div>
                   </div>
                 ))}
@@ -240,7 +256,9 @@ export default function AddService({ setService, userID }) {
           <input
             type="number"
             value={advance}
-            onChange={(event) => { setAdvance(parseInt(event.target.value)) }}
+            onChange={(event) => {
+              setAdvance(parseInt(event.target.value));
+            }}
             className="block w-[150px] px-2 border-2 py-1.5 rounded-md text-gray-900 focus:outline-purple-600"
             placeholder="Advance"
           />
@@ -249,31 +267,39 @@ export default function AddService({ setService, userID }) {
           </div>
           <button
             onClick={() => {
-              dispatch(createService(setLoading, {
-                "name": "service",
-                "date": getDate(),
-                "labour": inputs,
-                "spare": inputs1
-              }, userID))
+              dispatch(
+                createService(
+                  setLoading,
+                  {
+                    name: "service" + getDate(),
+                    date: getDate(),
+                    labour: inputs,
+                    spare: inputs1,
+                    total_amount: totalprice(),
+                    due_amount: totalprice() - advance,
+                    paid_amount: advance,
+                  },
+                  userID
+                )
+              );
             }}
             type="button"
             className="bg-gradient-to-r font-Poppins from-purple-700 via-purple-600 to-purple-500 text-lg px-8 py-3 text-white "
           >
-            {
-                  loading ?
-                    <ThreeDots
-                      visible={true}
-                      height="30"
-                      width="30"
-                      color="#ffffff"
-                      radius="9"
-                      ariaLabel="three-dots-loading"
-                      wrapperStyle={{}}
-                      wrapperClass=""
-                    />
-                    :
-                    "Save"
-                }
+            {loading ? (
+              <ThreeDots
+                visible={true}
+                height="30"
+                width="30"
+                color="#ffffff"
+                radius="9"
+                ariaLabel="three-dots-loading"
+                wrapperStyle={{}}
+                wrapperClass=""
+              />
+            ) : (
+              "Save"
+            )}
           </button>
           <button
             onClick={() => {
@@ -288,5 +314,5 @@ export default function AddService({ setService, userID }) {
         </div>
       </div>
     </div>
-  )
+  );
 }
