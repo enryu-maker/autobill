@@ -79,7 +79,7 @@ export const addCustomers = (setLoading, data, setData) => {
     setLoading(true);
     try {
       let response = await axiosIns.post("customer/create/", data);
-      let response2 = await axiosIns.post(
+      let response2 = await axiosIns.get(
         `customer/search/?search=${response?.data?.vehicle_number}`,
         data
       );

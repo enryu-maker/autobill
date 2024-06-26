@@ -11,6 +11,7 @@ export default function Pop({ setShow, setData }) {
     mobile_number: "",
     vehicle_number: "",
     make: "",
+    model:""
   });
 
   const handleFocus = (field) => {
@@ -144,6 +145,29 @@ export default function Pop({ setShow, setData }) {
               } pointer-events-none sm:text-base sm:font-light`}
             >
               Vehicle Make
+            </label>
+          </div>
+
+          <div className="relative">
+            <input
+              type="text"
+              name="model"
+              value={values.model}
+              onChange={handleChange}
+              onFocus={() => handleFocus("model")}
+              onBlur={() => handleBlur("model")}
+              className="block w-full px-3 py-2 text-gray-900 bg-white border border-gray-300 rounded-md appearance-none focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              placeholder=""
+              autoComplete="off"
+            />
+            <label
+              className={`absolute left-3 top-2 px-1 bottom-0 transition-all duration-200 transform ${
+                focused.model || values.model
+                  ? "-translate-y-6 top-0 bg-white text-indigo-500"
+                  : "text-gray-500"
+              } pointer-events-none sm:text-base sm:font-light`}
+            >
+               Model
             </label>
           </div>
         </div>

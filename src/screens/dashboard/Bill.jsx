@@ -12,9 +12,10 @@ export default function Bill({ data, cust }) {
   const getTargetElement = () => document.getElementById("container");
   const downloadPdf = () => generatePDF(getTargetElement, options);
   const user = useSelector((state) => state.Reducers.profile);
+  console.log("b",data)
   return (
     <div className="flex flex-col justify-center items-center font-Poppins">
-      <button onClick={downloadPdf}>Download PDF</button>
+      <button className="flex w-[30%] justify-center  bg-gradient-to-r font-Poppins my-5 from-purple-700 via-purple-600 to-purple-500 hover:bg-white hover:text-black hover:border-black hover:border-[1px] p-5 px-3 py-1.5 tracking-wider font-poppins font-bold  leading-6 text-white" onClick={downloadPdf}>Download PDF</button>
       <div
         id="container"
         className=" flex flex-col justify-evenly p-5 w-[100%] h-[100%] items-center "
@@ -39,9 +40,18 @@ export default function Bill({ data, cust }) {
             Vehicle No :{" "}
             <span className=" uppercase"> {cust?.vehicle_number}</span>{" "}
           </p>
+          <div className="flex space-x-5">
+          <p className=" font-Poppins text-xl font-bold tracking-widest self-start">
+            KM: {data?.km}
+          </p>
           <p className=" font-Poppins text-xl font-bold tracking-widest self-start">
             Make: {cust?.make}
           </p>
+          <p className=" font-Poppins text-xl font-bold tracking-widest self-start">
+            Model: {cust?.model}
+          </p>
+          </div>
+          
         </div>
         <h3 className="text-gray-800 text-3xl py-5 font-bold self-start ">
           Labour Charges
@@ -109,8 +119,8 @@ export default function Bill({ data, cust }) {
             ))}
           </table>
           <div className="flex w-[100%]   items-center justify-between pt-10">
-            <p className=" font-Poppins text-2xl self-end">
-              FOR RANA AUTOMOBILES
+            <p className=" font-Poppins text-2xl self-end uppercase">
+              FOR {user?.brand_name}
             </p>
             <div class="font-poppins  overflow-x-auto ">
               <table class=" w-[450px] border-2 divide-y divide-gray-200">

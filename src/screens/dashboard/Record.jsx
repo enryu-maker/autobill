@@ -17,7 +17,7 @@ export default function Record() {
   const [eshow, setEshow] = React.useState(false);
   const [current, setCurrent] = React.useState(0);
   const [current1, setCurrent1] = React.useState(0);
-
+  console.log(data)
   const dispatch = useDispatch();
   React.useEffect(() => {
     dispatch(getInfo(setLoading, setData, state?.id));

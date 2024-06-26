@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createService } from "../../Store/actions";
 import { ThreeDots } from "react-loader-spinner";
-
+import BillPop from "./BillPop";
 export default function AddService({ setService, userID }) {
   const dispatch = useDispatch();
   const [loading, setLoading] = React.useState(false);
+  const user = useSelector(state => state.Reducers.profile)
   const [data, setData] = React.useState([]);
   function getDate() {
     const today = new Date();
@@ -17,6 +18,8 @@ export default function AddService({ setService, userID }) {
   const [inputs, setInputs] = React.useState([{ name: "", cost: 0 }]);
   const [inputs1, setInputs1] = React.useState([{ name: "", cost: 0 }]);
   const [advance, setAdvance] = React.useState("");
+  const [km, setKm] = React.useState("");
+
   function totalprice() {
     let total = 0;
     for (let i = 0; i < inputs.length; i++) {
@@ -62,8 +65,22 @@ export default function AddService({ setService, userID }) {
     setInputs1(newArray);
   };
 
+  const [showb, setShowb] = React.useState(false)
+
   return (
     <div className="fixed inset-0 p-4 flex flex-wrap justify-center items-center w-full h-full z-[1000] font-Poppins before:fixed before:inset-0 before:w-full before:h-full before:bg-[rgba(0,0,0,0.5)] overflow-auto ">
+      {showb ? (
+        <BillPop setShow={setShowb} data={{
+          name: "service" + getDate(),
+          date: getDate(),
+          labour: inputs,
+          spare: inputs1,
+          total_amount: totalprice(),
+          due_amount: totalprice() - advance,
+          paid_amount: advance,
+          km: km
+        }} cust={user} />
+      ) : null}
       <div className="w-[88vw] h-[92vh] flex flex-col justify-evenly  bg-white shadow-lg rounded-lg p-6 relative">
         <div className="flex items-center pb-3 border-b border-gray-300">
           <h3 className="text-gray-800 text-xl font-bold flex-1">
@@ -265,6 +282,15 @@ export default function AddService({ setService, userID }) {
           <div className="bg-gray-100 text-base px-4 py-3.5 rounded-md outline-[#333]">
             Balance : ₹{totalprice() - advance}
           </div>
+          <input
+            type="number"
+            value={km}
+            onChange={(event) => {
+              setKm(parseInt(event.target.value));
+            }}
+            className="block w-[150px] px-2 border-2 py-1.5 rounded-md text-gray-900 focus:outline-purple-600"
+            placeholder="KM"
+          />
           <button
             onClick={() => {
               dispatch(
@@ -278,6 +304,8 @@ export default function AddService({ setService, userID }) {
                     total_amount: totalprice(),
                     due_amount: totalprice() - advance,
                     paid_amount: advance,
+                    km: km
+
                   },
                   userID
                 )
@@ -303,8 +331,7 @@ export default function AddService({ setService, userID }) {
           </button>
           <button
             onClick={() => {
-              // console.log(totalprice(inputs))
-              // console.log(totalprice())
+              setShowb(true)
             }}
             type="button"
             className="bg-gradient-to-r font-Poppins from-purple-700 via-purple-600 to-purple-500 text-lg px-8 py-3 text-white "
